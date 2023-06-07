@@ -7,16 +7,16 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ['username', 'email']
-        fields = [' user name ' ]
 
 class PostSerializer(serializers.ModelSerializer):
-    author_email = serializers.ReadOnlyField(source='author.username')
+    #author_email = serializers.ReadOnlyField(source='author.username')
+    author = AuthorSerializer()
 
     class Meta:
         model = Post
         fields = [
             'pk',
-            'author_email',
+            'author',
             'message',
             'created_at',
             'updated_at',
