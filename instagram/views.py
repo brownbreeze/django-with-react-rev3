@@ -12,3 +12,8 @@ class PublicPostListAPIView(generics.ListCreateAPIView):
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer   
+
+# def post_list(request):
+#     pass 
+
+# post_list = csrf_exempt(post_list) # 고차 컴포넌트 (higher order component)

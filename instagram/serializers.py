@@ -9,7 +9,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['username', 'email']
 
 class PostSerializer(serializers.ModelSerializer):
-    #author_email = serializers.ReadOnlyField(source='author.username')
     author = AuthorSerializer()
 
     class Meta:
