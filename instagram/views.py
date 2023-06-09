@@ -12,7 +12,6 @@ def public_post_list(request):
     serializer = PostSerializer(qs, many=True)
     return Response(serializer.data)
 
-# 아래 두개의 url을 해당 값으로 대체 가능 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

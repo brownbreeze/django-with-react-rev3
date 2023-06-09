@@ -3,8 +3,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register('post', views.PostViewSet) # 두개의 URL 을 생성 
-# router.urls # pattern list 
+router.register('post', views.PostViewSet)
 
 urlpatterns = [
     path('public/', views.public_post_list),
