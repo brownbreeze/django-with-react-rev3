@@ -1,8 +1,10 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, action
-from django.shortcuts import render
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.viewsets import ModelViewSet
+from django.shortcuts import render
 from .serializers import PostSerializer
 from .models import Post
 
@@ -29,3 +31,14 @@ class PostViewSet(ModelViewSet):
         instance.save(update_fields=['is_public'])
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+class PostDetailAPIView(RetrieveAPIView):
+    queryset = Post.objects.all()
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'instagram/post_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        post = self.get_object()
+        return Response({
+            'post': post,
+        })
