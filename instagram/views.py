@@ -2,11 +2,12 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, action
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import render
-from .permissions import IsAuthorOrReadonly
+from .permissions import IsAuthorOrReadnonly
 from .serializers import PostSerializer
 from .models import Post
 
@@ -19,7 +20,9 @@ from .models import Post
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated, IsAuthorOrReadonly]
+    permission_classes = [IsAuthenticated, IsAuthorOrReadnonly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['message']
 
     def perform_create(self, serializer):
         author = self.request.user # User or Anony
